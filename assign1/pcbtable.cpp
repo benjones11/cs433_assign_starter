@@ -16,9 +16,9 @@
  */
 PCBTable::PCBTable(int size) {
    // TODO: add your code here
-   next = NULL; 
-   prev = NULL; 
-   size = 0; 
+   head = NULL; 
+   tail = NULL; 
+   this->size = size; 
 }
 
 /**
@@ -28,12 +28,16 @@ PCBTable::PCBTable(int size) {
 PCBTable::~PCBTable() {
    // TODO: add your code here
    // Delete all the PCBs in the table
-    Node* temp;
-    while(next != NULL){
-        temp = next; 
-        next = next->next; 
-        delete temp;
+    PCBNode* current = head; 
+
+    while(current != NULL) {
+        PCBNode* next = current->next; 
+        delete current->process; //delete the PCB
+        delete current; //delete the node
+        current = next;
 }
+head = NULL; 
+tail = NULL; 
 }
 
 /**
@@ -44,8 +48,19 @@ PCBTable::~PCBTable() {
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
     // TODO: add your code here
-    return NULL;
-}
+    if(idx >= size) {
+        return NULL; //index out of bounds
+    }
+
+    PCBNode* current = head;
+
+    for(unsigned int i = 0; i < idx; i++) {
+        current = current->next;
+        }
+        return current->process;
+    }
+        
+
 
 /**
  * @brief Add a PCB pointer to the PCBTable at index idx.
@@ -55,4 +70,44 @@ PCB* PCBTable::getPCB(unsigned int idx) {
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
     // TODO: add your code here
     // Add a PCB pointer to the PCBTable at index idx.
+    if (size >= 100) {
+        cout << "PCBTable is full. Cannot add more PCBs." << endl;
+        return;
+    }
+    if (idx >= size) {
+        cout << "Index out of bounds. Cannot add PCB at index " << idx << endl;
+        return;
+    }
+
+    PCBNode* newNode = new PCBNode();
+    newNode->process = pcb;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+
+    if(head == NULL) {
+        head = newNode;
+        tail = newNode;
+    } else {
+        PCBNode* current = head;
+        for(unsigned int i = 0; i < idx; i++) {
+            if(current->next == NULL) {
+                break;
+            }
+            current = current->next;
+        }
+        if(current == head) {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        } else if(current == tail) {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        } else {
+            newNode->next = current;
+            newNode->prev = current->prev;
+            current->prev->next = newNode;
+            current->prev = newNode;
+        }
+    }
 }

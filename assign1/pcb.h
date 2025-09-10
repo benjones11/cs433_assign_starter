@@ -30,7 +30,7 @@ public:
 	unsigned int priority;
 	// The current state of the process.
 	// A process in the ReadyQueue should be in READY state
-	ProcState state;
+	ProcState state; //Process state object 
 
 	/**
 	 * @brief Construct a new PCB object
@@ -83,6 +83,8 @@ public:
      */
     void setState(ProcState state) {
         // TODO: add your code here
+        this->state = state;
+
     }
 
     /**
@@ -91,6 +93,7 @@ public:
      */
     void setPriority(unsigned int priority) {
         // TODO: add your code here
+        this->priority = priority;
     }
 
     /**

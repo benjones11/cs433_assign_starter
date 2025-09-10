@@ -18,19 +18,21 @@ typedef int el_t; // elem type
  * 
  */
 class PCBTable {
-private:
-struct Node{
-    el_t elem; 
-    Node *next; 
+protected:
+//creating a struct for a linked list 
+struct PCBNode{
+    PCB* process;  
+    PCBNode *next; 
+    PCBNode *prev;
+
 
 }; 
     // TODO: add your private member variables here
     // choose a data structure for the PCBTable. 
     // You can use an array of PCB pointers, e.g. vector<PCB *>. 
-    Node* next; //pointing to next 
-    Node* current; //pointing to current node 
-    Node* prev; //pointing to previous
-    int size;
+    PCBNode* head; //pointing to next 
+    PCBNode* tail; //pointing to previous
+    int size; //data of the node
 
 
 public:
