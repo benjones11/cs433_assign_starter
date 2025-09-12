@@ -12,6 +12,8 @@ using namespace std;
  */
  ReadyQueue::ReadyQueue()  {
      //TODO: add your code here
+     head = NULL; 
+     count = 0; 
  }
 
 /**
@@ -19,6 +21,12 @@ using namespace std;
 */
 ReadyQueue::~ReadyQueue() {
     //TODO: add your code to release dynamically allocate memory
+    Node* current = head;
+    while(current != NULL){
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
 }
 
 /**
@@ -29,7 +37,25 @@ ReadyQueue::~ReadyQueue() {
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     //TODO: add your code here
     // When adding a PCB to the queue, you must change its state to READY.
+   if (!pcbPtr) return; 
+
+   pcbPtr->state = ProcState::READY;
+    Node* newNode = new Node(pcbPtr);
+    count++; 
+
+    if(!head || pcbPtr->priority > head->pcb->priority){
+        newNode->next = head; 
+        head = newNode; 
+        return; 
+    }
+Node* current = head;
+while(current->next && current-> next->pcb->priority >= pcbPtr->priority){
+    current = current->next; 
 }
+newNode->next = current->next; 
+current->next = newNode; 
+}
+
 
 /**
  * @brief Remove and return the PCB with the highest priority from the queue
@@ -39,6 +65,19 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
 PCB* ReadyQueue::removePCB() {
     //TODO: add your code here
     // When removing a PCB from the queue, you must change its state to RUNNING.
+    if(!head) return NULL;
+
+    Node* newNode = head; 
+    head = head->next; 
+
+    PCB* out = newNode->pcb;
+    delete newNode; 
+    count--; 
+
+    if (out) out->state = ProcState::RUNNING; 
+
+    return out; 
+
 }
 
 /**
@@ -48,6 +87,7 @@ PCB* ReadyQueue::removePCB() {
  */
 int ReadyQueue::size() {
     //TODO: add your code here
+    return count; 
 }
 
 /**
@@ -55,4 +95,14 @@ int ReadyQueue::size() {
  */
 void ReadyQueue::displayAll() {
     //TODO: add your code here
+    if(!head){
+        cout << "empty" << endl; 
+        return; 
+    }
+    Node* current = head; 
+    while (current){
+        cout << "ID: " << current->pcb->id << ", Priority: " << current->pcb->priority << endl;
+        current = current->next;
+    }
+
 }
