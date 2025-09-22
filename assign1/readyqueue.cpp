@@ -12,7 +12,6 @@ using namespace std;
  */
  ReadyQueue::ReadyQueue()  {
      //TODO: add your code here
-     head = NULL; 
      count = 0; 
  }
 
@@ -37,24 +36,34 @@ ReadyQueue::~ReadyQueue() {
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     //TODO: add your code here
     // When adding a PCB to the queue, you must change its state to READY.
-   if (!pcbPtr) return; 
+   if(count == MAX){
+    cout << "Error: unable to add anymore elements" << endl; 
+    return; 
+   }
+   Q[count] = pcbPtr;
+    count++;
 
-   pcbPtr->state = ProcState::READY;
-    Node* newNode = new Node(pcbPtr);
-    count++; 
+    trickleup(); 
 
-    if(!head || pcbPtr->priority > head->pcb->priority){
-        newNode->next = head; 
-        head = newNode; 
-        return; 
+}
+
+void ReadyQueue::trickleup(){
+    int idx = count -1; 
+    while(idx >= 0){
+        int parent = getparent(x); 
+        if(Q[parent] > Q[idx]){
+            swap(parent, idx); 
+            idx = parent; 
+        }
+        else{
+            break; 
+        }
     }
-Node* current = head;
-while(current->next && current-> next->pcb->priority >= pcbPtr->priority){
-    current = current->next; 
 }
-newNode->next = current->next; 
-current->next = newNode; 
-}
+
+
+
+
 
 
 /**
@@ -65,19 +74,16 @@ current->next = newNode;
 PCB* ReadyQueue::removePCB() {
     //TODO: add your code here
     // When removing a PCB from the queue, you must change its state to RUNNING.
-    if(!head) return NULL;
-
-    Node* newNode = head; 
-    head = head->next; 
-
-    PCB* out = newNode->pcb;
-    delete newNode; 
-    count--; 
-
-    if (out) out->state = ProcState::RUNNING; 
-
-    return out; 
-
+    if(count == 0){
+        cout << "Error: no more elements to remove" << endl; 
+        return; 
+    }
+    PCB* head = Q[0]; 
+    head->setState(ProcState::RUNNING);
+Q[0] = Q[count-1]; 
+count--; 
+reheapifty(); 
+return head; 
 }
 
 /**

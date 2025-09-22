@@ -10,7 +10,8 @@
 #pragma once
 
 #include "pcb.h"
-
+#include <vector> 
+using namespace std; 
 
 typedef int el_t; // elem type
 /**
@@ -18,23 +19,11 @@ typedef int el_t; // elem type
  * 
  */
 class PCBTable {
-protected:
-//creating a struct for a linked list 
-struct PCBNode{
-    PCB* process;  
-    PCBNode *next; 
-    PCBNode *prev;
-
-
-}; 
+private:
     // TODO: add your private member variables here
     // choose a data structure for the PCBTable. 
     // You can use an array of PCB pointers, e.g. vector<PCB *>. 
-    PCBNode* head; //pointing to next 
-    PCBNode* tail; //pointing to previous
-    int size; //data of the node
-
-
+ vector<PCB*> pcbs; //creating a vector of PCB pointers to contain all the PCB's
 public:
     /**
      * @brief Construct a new PCBTable object of the given size (number of PCBs)

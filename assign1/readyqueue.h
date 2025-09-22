@@ -9,7 +9,6 @@
 //You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient comments to your code
 #pragma once
-
 #include "pcb.h"
 
 /**
@@ -21,15 +20,22 @@ class ReadyQueue {
 private:
     // TODO: add your private member variables here
     // choose a data structure for the ReadyQueue. No STL class is allowed.
-    struct Node{
-        PCB* pcb; 
-        Node* next; 
-        Node(PCB* p) : pcb(p), next(NULL){}
+    struct Node {
+    PCB* pcb; 
+    Node* next; 
     }; 
     Node* head; 
-    int count; 
+    int count;
+   PCB* Q[MAX]; //array to hold the PCB ID's
 
+   int count; 
 
+   void swap(PCB* &a, PCB* &b); 
+    void reheapifty(); 
+    int getSmallerchild(int idx); 
+    void trickleup(); 
+    int getParent(int idx); 
+    bool even(); 
 public:
     /**
      * @brief Construct a new ReadyQueue object
