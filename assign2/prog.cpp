@@ -24,26 +24,27 @@ using namespace std;
 /**
  * @brief parse out the command and arguments from the input command separated by spaces
  *
- * @param command
- * @param args
- * @return int
+ * @param command input buffer; motified by strtok
+ * @param args Array of string pointers ro each token 
+ * @return int number of tokens found in command 
  */
 int parse_command(char command[], char *args[])
 {
     // Remove newline character
+    //strcspn counts char until a new line is found and makes the string end before the new line 
     command[strcspn(command, "\n")] = '\0';
     
     int arg_count = 0;
-    char *token = strtok(command, " ");
+    char *token = strtok(command, " "); //this splits the string into tokens at spaces
     
-    while (token != NULL && arg_count < MAX_LINE / 2) {
-        args[arg_count] = token;
+    while (token != NULL && arg_count < MAX_LINE / 2) { //while the token isn't null and the count hasn't reached max
+        args[arg_count] = token; //store in each token
         arg_count++;
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " "); //continue until end of the string 
     }
     
     args[arg_count] = NULL; // Null-terminate for execvp
-    return arg_count;
+    return arg_count; //returns count of arguments 
 }
 
 // TODO: Add additional functions if you need
@@ -78,6 +79,7 @@ int main(int argc, char *argv[])
          * (2) the child process will invoke execvp()
          * (3) parent will invoke wait() unless command included &
          */
+    
     }
     return 0;
 }
