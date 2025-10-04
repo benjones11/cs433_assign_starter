@@ -2,11 +2,10 @@
 /**
  * Assignment 2: Simple UNIX Shell
  * @file pcbtable.h
- * @author Benjamin Jones 
+ * @author Benjamin Jones, Anshool Yeruva
  * @brief This is the main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
  * @version 0.1
  */
-// You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient and clear comments to your code
 
 #include <stdio.h>
@@ -111,7 +110,7 @@ int main(int argc, char *argv[])
     char *args[MAX_LINE / 2 + 1]; // hold parsed out command line arguments
     int should_run = 1;           /* flag to determine when to exit program */
     char history[MAX_LINE]; 
-    // TODO: Add additional variables for the implementation.
+    
 
     while (should_run)
     {
@@ -125,17 +124,9 @@ int main(int argc, char *argv[])
         // Parse the input command; copy of what the user entered
         int num_args = parse_command(command, args);
 
-        // TODO: Add your code for the implementation
-        /**
-         * After reading user input, the steps are:
-         * (1) fork a child process using fork()
-         * (2) the child process will invoke execvp()
-         * (3) parent will invoke wait() unless command included &
-         */
-
         if(num_args == 1 && strcmp(args[0], "!!") == 0){
             if(history[0] == '\0'){
-                printf("No commands\n"); 
+                printf("No command history\n"); 
                 continue; 
             }
             strcpy(command, history);
@@ -152,7 +143,7 @@ int main(int argc, char *argv[])
         continue; 
         }
 
-        // Check for pipe first (before redirection)
+        // Check for pipe first (before redirection) 
         char *second_command[MAX_LINE / 2 + 1];
         int second_num_args = 0;
         bool has_pipe = check_pipe(args, num_args, second_command, second_num_args);

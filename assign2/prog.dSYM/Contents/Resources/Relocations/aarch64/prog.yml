@@ -2,7 +2,9 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/benjaminjones/Desktop/cs433_assign_starter/assign2/prog'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: __Z13parse_commandPcPS_, symObjAddr: 0x0, symBinAddr: 0x100003BF8, symSize: 0xE4 }
-  - { offsetInCU: 0x2DE1, offset: 0x2DE1, size: 0x8, addend: 0x0, symName: __Z13parse_commandPcPS_, symObjAddr: 0x0, symBinAddr: 0x100003BF8, symSize: 0xE4 }
-  - { offsetInCU: 0x2E37, offset: 0x2E37, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xE4, symBinAddr: 0x100003CDC, symSize: 0x208 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: __Z13parse_commandPcPS_, symObjAddr: 0x0, symBinAddr: 0x100003440, symSize: 0xE4 }
+  - { offsetInCU: 0x2DE1, offset: 0x2DE1, size: 0x8, addend: 0x0, symName: __Z13parse_commandPcPS_, symObjAddr: 0x0, symBinAddr: 0x100003440, symSize: 0xE4 }
+  - { offsetInCU: 0x2E37, offset: 0x2E37, size: 0x8, addend: 0x0, symName: __Z17check_redirectionPPcRiS_S_, symObjAddr: 0xE4, symBinAddr: 0x100003524, symSize: 0x244 }
+  - { offsetInCU: 0x2EE1, offset: 0x2EE1, size: 0x8, addend: 0x0, symName: __Z10check_pipePPcRiS0_S1_, symObjAddr: 0x328, symBinAddr: 0x100003768, symSize: 0x15C }
+  - { offsetInCU: 0x2F6F, offset: 0x2F6F, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x484, symBinAddr: 0x1000038C4, symSize: 0x590 }
 ...
