@@ -1,7 +1,11 @@
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>   // for sleep/usleep
+#include <iostream>
 /**
 * Assignment 4: Producer Consumer Problem
  * @file buffer.h
- * @author ??? (TODO: your name)
+ * @author Benjamin Jones, Anshool Yuvera  
  * @brief header file for the buffer class
  * @version 0.1
  */
@@ -11,20 +15,25 @@
 
 // Define the data type of the buffer items
 typedef int buffer_item;
+#define BUFFER_SIZE 5 // default buffer size
 
 /**
  * @brief The bounded buffer class. The number of items in the buffer cannot exceed the size of the buffer.
  */
 class Buffer {
 private:
-    // TODO: Add your implementation of the buffer class here
+buffer_item buffer[BUFFER_SIZE]; // the buffer array
+    int size;           // the size of the buffer
+    int count;          // the number of items in the buffer
+    int in;             // the index of the next item to insert
+    int out;            // the index of the next item to remove
 
 public:
     /**
      * @brief Construct a new Buffer object
      * @param size the size of the buffer
      */
-    Buffer(int size = 5);
+    Buffer(int size = BUFFER_SIZE);
 
     /**
      * @brief Destroy the Buffer object
